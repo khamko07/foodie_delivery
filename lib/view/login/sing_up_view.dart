@@ -5,6 +5,7 @@ import 'package:food_delivery/common/color_extension.dart';
 import 'package:food_delivery/common/extension.dart';
 import 'package:food_delivery/common_widget/round_button.dart';
 import 'package:food_delivery/view/login/login_view.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../../common/globs.dart';
 import '../../common/service_call.dart';
@@ -186,13 +187,12 @@ class _SignUpViewState extends State<SignUpView> {
 
     serviceCallSignUp({
       "name": txtName.text,
-
       "mobile": txtMobile.text,
       "email": txtEmail.text,
       "address": txtAddress.text,
       "password": txtPassword.text,
       "push_token": "",
-      "device_type": Platform.isAndroid ? "A" : "I"
+      "device_type": kIsWeb ? "W" : (Platform.isAndroid ? "A" : "I")
     });
   }
 

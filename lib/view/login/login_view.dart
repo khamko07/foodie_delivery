@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/color_extension.dart';
 import 'package:food_delivery/common/extension.dart';
@@ -6,6 +7,7 @@ import 'package:food_delivery/common_widget/round_button.dart';
 import 'package:food_delivery/view/login/rest_password_view.dart';
 import 'package:food_delivery/view/login/sing_up_view.dart';
 import 'package:food_delivery/view/on_boarding/on_boarding_view.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../../common/service_call.dart';
 import '../../common_widget/round_icon_button.dart';
@@ -174,7 +176,12 @@ class _LoginViewState extends State<LoginView> {
 
     endEditing();
 
-    serviceCallLogin({"email": txtEmail.text, "password": txtPassword.text, "push_token": "" });
+    serviceCallLogin({
+      "email": txtEmail.text, 
+      "password": txtPassword.text, 
+      "push_token": "",
+      "device_type": kIsWeb ? "W" : (Platform.isAndroid ? "A" : "I")
+    });
   }
 
   void serviceCallLogin(Map<String, dynamic> parameter) {
