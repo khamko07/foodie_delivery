@@ -73,12 +73,8 @@ class Globs {
 }
 
 class SVKey {
-  // Sử dụng 10.0.2.2 cho Android emulator để kết nối đến localhost của máy host
-  // Sử dụng localhost cho iOS simulator
-  // Sử dụng IP thật của máy tính cho thiết bị thật
-  static const mainUrl = "http://10.0.2.2:3001";  // Cho Android emulator
-  // static const mainUrl = "http://localhost:3001";  // Cho iOS simulator
-  // static const mainUrl = "http://192.168.1.2:3001";  // Cho thiết bị thật - thay đổi IP này thành IP thật của máy tính của bạn
+  // Sử dụng localhost cho desktop/web vì server và client chạy trên cùng máy
+  static const mainUrl = "http://localhost:3001";
   static const baseUrl = '$mainUrl/api/';
   static const nodeUrl = mainUrl;
 

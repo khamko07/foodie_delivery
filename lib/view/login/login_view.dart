@@ -184,27 +184,32 @@ class _LoginViewState extends State<LoginView> {
     });
   }
 
-  void serviceCallLogin(Map<String, dynamic> parameter) {
+  void serviceCallLogin(Map<String, dynamic> parameter) async {
     Globs.showHUD();
 
-    ServiceCall.post(parameter, SVKey.svLogin,
-        withSuccess: (responseObj) async {
-      Globs.hideHUD();
-      if (responseObj[KKey.status] == "1") {
-        
-        Globs.udSet( responseObj[KKey.payload] as Map? ?? {} , Globs.userPayload);
-        Globs.udBoolSet(true, Globs.userLogin);
+    // Tạm thời sử dụng mock data
+    await Future.delayed(const Duration(seconds: 1)); // Giả lập đợi server phản hồi
 
-          Navigator.pushAndRemoveUntil(context,  MaterialPageRoute(
-            builder: (context) => const OnBoardingView(),
-          ), (route) => false);
-      } else {
-        mdShowAlert(Globs.appName,
-            responseObj[KKey.message] as String? ?? MSG.fail, () {});
-      }
-    }, failure: (err) async {
-      Globs.hideHUD();
-      mdShowAlert(Globs.appName, err.toString(), () {});
-    });
+    Globs.hideHUD();
+
+    // Giả lập đăng nhập thành công
+    Globs.udSet({
+      "user_id": "1",
+      "name": "Test User",
+      "email": parameter["email"],
+      "mobile": "1234567890",
+      "address": "Test Address"
+    }, Globs.userPayload);
+    
+    Globs.udBoolSet(true, Globs.userLogin);
+
+    // Chuyển qua màn hình OnBoarding
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const OnBoardingView(),
+      ),
+      (route) => false,
+    );
   }
 }
